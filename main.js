@@ -1,140 +1,48 @@
+window.addEventListener('load', () => {
+	const form = document.querySelector("#todo-list");
+	const input = document.querySelector("#todo-input");
+	const list_el = document.querySelector("#tasks");
 
-* {
-	margin: 0;
-	box-sizing: border-box;
-	font-family: "Fira sans", sans-serif;
-}
+	form.addEventListener('submit', (e) => {
+		e.preventDefault();
 
-body {
-	display: flex;
-	flex-direction: column;
-	min-height: 100vh;
-	color: #FFF;
-	background-color: #c2c2c2;
-}
+		const task = input.value;
 
-header {
-	padding: 2rem 1rem;
-	max-width: 800px;
-	width: 100%;
-	margin: 0 auto;
-}
+		const task_el = document.createElement('div');
+		task_el.classList.add('task');
 
-header h1{ 
-	font-size: 2.5rem;
-	font-weight: 300;
-	color: var(--grey);
-	margin-bottom: 1rem;
-}
+		const task_content_el = document.createElement('div');
+		task_content_el.classList.add('content');
 
-#todo-list {
-	display: flex;;
-}
+		task_el.appendChild(task_content_el);
 
-input, button {
-	appearance: none;
-	border: none;
-	outline: none;
-	background: none;
-}
+		const task_input_el = document.createElement('input');
+		task_input_el.classList.add('text');
+		task_input_el.type = 'text';
+		task_input_el.value = task;
+		task_input_el.setAttribute('readonly', 'readonly');
 
-#todo-input {
-	flex: 1 1 0%;
-	background-color: #ebebeb;
-	padding: 1rem;
-	border-radius: 1rem;
-	margin-right: 1rem;
-	color: #575757;
-	font-size: 1.25rem;
-}
+		task_content_el.appendChild(task_input_el);
 
-#todo-input::placeholder {
-	color: #575757;
-}
+		const task_actions_el = document.createElement('div');
+		task_actions_el.classList.add('actions');
+		
+		
 
-#todo-submit {
-	font-size: 1.25rem;
-	font-weight: 700;
-	background-color: #141414;
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
-	cursor: pointer;
-	transition: 0.4s;
-}
+		const task_delete_el = document.createElement('button');
+		task_delete_el.classList.add('delete');
+		task_delete_el.innerText = '刪除';
 
-#todo-submit:hover {
-	opacity: 0.8;
-}
+		task_actions_el.appendChild(task_delete_el);
 
-#todo-submit:active {
-	opacity: 0.6;
-}
+		task_el.appendChild(task_actions_el);
 
-main {
-	flex: 1 1 0%;
-	max-width: 800px;
-	width: 100%;
-	margin: 0 auto;
-}
+		list_el.appendChild(task_el);
 
-.task-list {
-	padding: 1rem;
-}
+		input.value = '';
 
-.task-list h2 {
-	font-size: 1.5rem;
-	font-weight: 600;
-	color: #141414;
-	margin-bottom: 1rem;
-}
-
-#tasks .task {
-	display: flex;
-	justify-content: space-between;
-	background-color: var(--darkest);
-	padding: 1rem;
-	border-radius: 1rem;
-	margin-bottom: 1rem;
-}
-
-.task .content {
-	flex: 1 1 0%;
-}
-
-.task .content .text {
-	color: color: #141414;
-	font-size: 1.125rem;
-	width: 100%;
-	display: block;
-	transition: 0.4s;
-}
-
-.task .content .text:not(:read-only) {
-	color: #141414;
-}
-
-.task .actions {
-	display: flex;
-	margin: 0 -0.5rem;
-}
-
-.task .actions button {
-	cursor: pointer;
-	margin: 0 0.5rem;
-	font-size: 1.125rem;
-	font-weight: 700;
-	text-transform: uppercase;
-	transition: 0.4s;
-}
-
-.task .actions button:hover {
-	opacity: 0.8;
-}
-
-.task .actions button:active {
-	opacity: 0.6;
-}
-
-.task .actions .delete {
-	color: #141414;
-}
+		task_delete_el.addEventListener('click', (e) => {
+			list_el.removeChild(task_el);
+		});
+	});
+});
